@@ -5,19 +5,24 @@ import com.mongodb.*;
 import static spark.Spark.setIpAddress;
 import static spark.Spark.setPort;
 import static spark.SparkBase.staticFileLocation;
+import spark.servlet.SparkApplication;
 
 /**
  * Created by shekhargulati on 09/06/14.
  */
-public class Bootstrap {
+public class Bootstrap implements SparkApplication {
     private static final String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
     private static final int PORT = System.getenv("OPENSHIFT_DIY_IP") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_IP")) : 8080;
 
-    public static void main(String[] args) throws Exception {
+    public void init() {
         setIpAddress(IP_ADDRESS);
         setPort(PORT);
         staticFileLocation("/public");
-        new TodoResource(new TodoService(mongo()));
+        try {
+            new TodoResource(new TodoService(mongo()));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private static DB mongo() throws Exception {
