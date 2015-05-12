@@ -15,8 +15,8 @@ public class Bootstrap implements SparkApplication {
     private static final int PORT = System.getenv("OPENSHIFT_DIY_IP") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_IP")) : 8080;
 
     public void init() {
-        setIpAddress(IP_ADDRESS);
-        setPort(PORT);
+        //setIpAddress(IP_ADDRESS);
+        //setPort(PORT);
         staticFileLocation("/public");
         try {
             new TodoResource(new TodoService(mongo()));
