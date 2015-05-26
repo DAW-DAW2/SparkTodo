@@ -22,7 +22,7 @@ app.config(function ($routeProvider) {
 });
 
 app.controller('ListCtrl', function ($scope, $http) {
-    $http.get('/api/v1/todos').success(function (data) {
+    $http.get('/todo-1.0/api/v1/todos').success(function (data) {
         $scope.todos = data;
     }).error(function (data, status) {
         console.log('Error ' + data)
@@ -30,7 +30,7 @@ app.controller('ListCtrl', function ($scope, $http) {
 
     $scope.todoStatusChanged = function (todo) {
         console.log(todo);
-        $http.put('/api/v1/todos/' + todo.id, todo).success(function (data) {
+        $http.put('/todo-1.0/api/v1/todos/' + todo.id, todo).success(function (data) {
             console.log('status changed');
         }).error(function (data, status) {
             console.log('Error ' + data)
@@ -45,7 +45,7 @@ app.controller('CreateCtrl', function ($scope, $http, $location) {
 
     $scope.createTodo = function () {
         console.log($scope.todo);
-        $http.post('/api/v1/todos', $scope.todo).success(function (data) {
+        $http.post('/todo-1.0/api/v1/todos', $scope.todo).success(function (data) {
             $location.path('/');
         }).error(function (data, status) {
             console.log('Error ' + data)

@@ -1,23 +1,33 @@
+plugins {
+  id "com.bmuschko.tomcat" version "2.2.2"
+}
+
 apply plugin: 'java'
 apply plugin: 'war'
 
 sourceCompatibility = 1.8
 version = '1.0'
 war{
-	baseName = 'TodoApp'	
+	baseName = 'todo'	
 }
+
 repositories{
+  mavenCentral()
 	flatDir{
-	dirs 'lib'
+	 dirs 'lib'
 	}
-}
+}	
+
+
+
+
 dependencies {
-    compile 'lib:spark-core:2.1'
-    compile 'lib:slf4j-api:1.7.9'
-    compile 'lib:slf4j-simple:1.7.9'
-    compile 'lib:spark-template-freemarker:2.0.0'
-    compile 'lib:freemarker'
-    compile 'lib:mongo-java-driver:2.11.3'
-    compile 'lib:gson:2.3.1'
-    compile 'lib:jetty-util:9.0.2.v20130417'       
+    def tomcatVersion = '7.0.59'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+    compile 'com.sparkjava:spark-core:2.2'
+    compile 'org.mongodb:mongo-java-driver:2.13.1'
+    compile 'com.google.code.gson:gson:2.3.1'
+    providedCompile 'org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016'
 }
